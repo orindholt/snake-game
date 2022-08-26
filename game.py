@@ -1,4 +1,3 @@
-from tkinter import E
 import pygame
 import random
 import shelve
@@ -20,9 +19,9 @@ char_size = 30
 screen_width = char_size * 30
 screen_height = char_size * 20
 
-blue = 0, 0, 255
 black = 0, 0, 0
 white = 255, 255, 255
+red = 255, 105, 105
 FPS = 10
 
 monster_death_sounds = [
@@ -99,7 +98,7 @@ class Button():
         font = pygame.font.Font("assets/fonts/font_02.otf", size)
         self.rendered = font.render(str(text), True, color)
         self.rect = self.rendered.get_rect()
-        self.rect.topleft = (x, y)
+        self.rect.topleft = (x - self.rect.width / 2, y)
         self.clicked = False
 
     def draw(self):
@@ -120,10 +119,12 @@ class Button():
         return action
 
 
-start_button = Button(round(screen_width/2.5),
-                      round(screen_height/2.25), "Start", 42, white)
-exit_button = Button(round(screen_width/2.4),
-                     round(screen_height/1.8), "Exit", 42, white)
+start_btn = Button(round(screen_width/2),
+                   250, "Start", 42, white)
+exit_btn = Button(round(screen_width/2),
+                  300, "Exit", 42, white)
+wipe_hscore_btn = Button(round(screen_width/2),
+                         350, "Wipe Highscore", 42, red)
 
 monsters = [
     MonsterAnimations.spider_ani,
@@ -179,14 +180,22 @@ def gameLoop():
             screen.blit(grass, (0, 0))
             show_high_score(hscore)
             title = title_font.render("Snake Game", True, white)
-            screen.blit(title, (screen_width/3.8, screen_height/3.8))
+            title_rect = title.get_rect()
+            title_rect.topleft = ((screen_width / 2) -
+                                  (title_rect.width / 2), 125)
+            screen.blit(title, title_rect.topleft)
 
-            if start_button.draw():
+            if start_btn.draw():
                 game_menu = False
                 gameLoop()
-            if exit_button.draw():
+            if exit_btn.draw():
                 pygame.quit()
                 quit()
+            if wipe_hscore_btn.draw():
+                d = shelve.open("data")
+                d["high_score"] = str(0)
+                hscore = 0
+                d.close()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
