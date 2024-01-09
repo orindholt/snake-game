@@ -7,7 +7,6 @@ Welcome to the Snake Game repository! This project contains the necessary assets
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Assets](#assets)
 
 ## Introduction
 
@@ -17,13 +16,18 @@ This project is a simple implementation of the Snake Game in Python. The game is
 
 1. Clone the repository to your local machine:
    
-   ```bash
-   git clone https://github.com/your-username/snake-game.git
+      ```bash
+      git clone https://github.com/your-username/snake-game.git
 
 2.  Navigate to the project directory:
    
-    ```bash
-    cd snake-game
+       ```bash
+       cd snake-game
+
+3.  Install dependencies:
+
+      ```bash
+      pip install pygame
 
 ## Usage
 
@@ -31,7 +35,7 @@ To run the Snake Game, execute the following command:
 
     python game.py
 
-Use the arrow keys to control the snake's movement. Have fun playing!
+Use the wasd keys to control the snake's movement. Have fun playing!
 Assets
 
 The assets folder contains all the necessary graphical assets for the Snake Game. These include images for the snake, food, and any other visual elements used in the game.
